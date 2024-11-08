@@ -30,7 +30,7 @@ db.connect((err) => {
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-
+  console.log(username, password)
   const query = 'INSERT INTO logins (usuario, contraseña, ingreso) VALUES (?, ?, NOW())';
   db.query(query, [username, password], (err, result) => {
     if (err) {
