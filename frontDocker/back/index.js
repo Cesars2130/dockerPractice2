@@ -4,16 +4,20 @@ const mysql = require('mysql2');
 const app = express();
 const port = 3000;
 
+
+const dotenv = require("dotenv");
+
+dotenv.config();
 app.use(cors());  
 
 
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Cesanoja2130', 
-  database: 'dockerbd'
+  host: process.env.DHOST,
+  user: process.env.DUSER,
+  password: process.env.PASSWORD, 
+  database: process.env.NAME
 });
 
 db.connect((err) => {

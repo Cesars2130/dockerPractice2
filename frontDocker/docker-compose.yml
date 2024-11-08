@@ -4,7 +4,7 @@ services:
   react-app:
     build:
       context: .
-      dockerfile: DockerFile
+      dockerfile: Dockerfile
     ports:
       - "80:80"
     depends_on:
@@ -14,15 +14,15 @@ services:
   api:
     build:
       context: ./back
-      dockerfile: DockerFile
+      dockerfile: Dockerfile
     environment:
       DHOST: db
       DUSER: user
       NAME: mydatabase
       PASSWORD: password
-      PORT: 4000
+      PORT: 3000
     ports:
-      - "4000:4000"
+      - "3000:3000"
     depends_on:
       - db
 
