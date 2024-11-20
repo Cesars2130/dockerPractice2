@@ -12,19 +12,21 @@ services:
       - api
 
   api:
-    build:
-      context: ./back
-      dockerfile: Dockerfile
-    environment:
-      DHOST: db
-      DUSER: user
-      NAME: mydatabase
-      PASSWORD: password
-      PORT: 3000
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
+  build:
+    context: ./back
+    dockerfile: Dockerfile
+  environment:
+    DHOST: db
+    DUSER: user
+    NAME: mydatabase
+    PASSWORD: password
+    DPORT: 3306
+  ports:
+    - "3000:3000"
+  depends_on:
+    - db
+  command: ["wait-for-it.sh", "db:3306", "--", "npm", "start"]
+
 
   db:
     image: mysql:8.0
