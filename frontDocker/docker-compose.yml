@@ -3,7 +3,7 @@ version: '3.8'
 services:
   react-app:
     build:
-      context: .
+      context: ./front
       dockerfile: Dockerfile
     ports:
       - "80:80"
@@ -12,26 +12,24 @@ services:
       - api
 
   api:
-  build:
-    context: ./back
-    dockerfile: Dockerfile
-  environment:
-    DHOST: db
-    DUSER: user
-    NAME: mydatabase
-    PASSWORD: password
-    DPORT: 3306
-  ports:
-    - "3000:3000"
-  depends_on:
-    - db
-  command: ["wait-for-it.sh", "db:3306", "--", "npm", "start"]
-
+    build:
+      context: ./back
+      dockerfile: Dockerfile # Asegúrate de que exista este archivo en la carpeta `api`
+    environment:
+      DHOST: db
+      DUSER: user
+      NAME: mydatabase
+      PASSWORD: password
+      PORT: 4000
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
 
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: root_password # Cambia esto a una contraseña segura
       MYSQL_DATABASE: mydatabase
       MYSQL_USER: user
       MYSQL_PASSWORD: password
